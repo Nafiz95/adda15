@@ -50,3 +50,19 @@
 <ul>
  <li> When the user has clicked start and sends message, the message is saved in session schema with userID who had sent it</li>
 </ul>
+<h3> CLIENT SIDE TECHS: </h3>
+<ul>
+ <li>HTML-CSS-JS</li>
+ <li>Jquery Libs </li>
+ <li>localStorage</li>
+ <li>Bootstrap 4</li>
+ <li>FontAwesome Libs/li>
+</ul>
+<h3> BACKEND TECHS: </h3>
+<ul>
+ <li>Mongoose</li>
+ <li>Express EJS </li>
+ <li>Socket.io</li>
+ <li>Body Parser</li>
+ <li>Nodemon Libs/li>
+</ul>
