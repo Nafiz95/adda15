@@ -37,3 +37,13 @@
  <li> Fetches sessionID from database with seach key</li>
 </ul>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49658222-c2b6ba80-fa6b-11e8-9e85-4770388653f5.JPG"></p>
+<hr>
+<h3 align="center"> CHATROOM </h3>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49658499-6c964700-fa6c-11e8-9b35-dfb023556255.JPG"></p>
+<ul>
+ <li> Socket is implemented in this section</li>
+ <li> Fetches Session name currently in use </li>
+ <li> There's a timer set to 900s (15mins). When the page is first loaded, user cannot send messages unless the user clicks start</li>
+ <li> When the time stops, or when user clicks stop, the input form will be disabled again</li>
+</ul>
+
