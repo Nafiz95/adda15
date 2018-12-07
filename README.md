@@ -50,6 +50,8 @@
 <ul>
  <li> When the user has clicked start and sends message, the message is saved in session schema with userID who had sent it</li>
 </ul>
+<hr>
+<hr>
 <h3 align="center"> MONGODB AND LOCAL STORAGES
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49661274-d7e31780-fa72-11e8-9cc0-5345708eeaa5.JPG"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49661428-39a38180-fa73-11e8-8ce1-6cd0c548ac1c.JPG"></p>
