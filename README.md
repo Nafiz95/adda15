@@ -19,3 +19,9 @@
  <li> "CREATE ROOM" creates new chat session and saves session name in localStorage "sessionData" </li>
 </ul>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49655480-f8a47080-fa64-11e8-85fa-062a67ccbe50.JPG"></p>
+<h4> CREATE ROOM </h4>
+<ul>
+ <li> Dynamically generates a form to create session </li>
+ <li> Saves user given name for session in localSotrage "sessionData" and also in mongoDB (collection: msns)</li>
+</ul>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49657607-3f489980-fa6a-11e8-877e-a312f419f791.JPG"></p>
