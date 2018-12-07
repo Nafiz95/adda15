@@ -1,0 +1,179 @@
+<% include ./partials/header.ejs %>
+<body id= "chtrm">
+    <h1 style="text-align:center;color:white;text-shadow: 0 0 10px black"> CHATROOM15 </h1> 
+    <h2 style="text-align:center;color:#720000"> USER ID: <%=user%> </h2> 
+    
+    <div id="chtrmbdy">
+        <div id="options" align="center">
+            <button type="button" class="btn btn-dark font-weight-bold" id="search">SEARCH ROOM</button>
+            <button type="button" class="btn btn-warning font-weight-bold" id="create">CREATE ROOM</button>
+        </div>
+        <div id="history">
+            <h2 style="color:yellow">CHAT HISTORY</h2>
+       </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        
+        
+    //LOAD HISTORY IN #history div
+    
+    if("historyData" in localStorage){
+          console.log("LOCAL STORAGE ASE");
+          var histarr=JSON.parse(localStorage.getItem("historyData"));
+            histarr.forEach(function(product, index){
+                $("#history").append($('<h3>').css("color","white").text((histarr[index].s_name)));
+            });
+            
+        } else {
+            console.log("HIS DATA NAI")
+    }
+
+    
+    
+    
+    //WHEN SEARCH ROOM CLICKED
+    $("#search").click(function(){
+       
+        $('#search').hide();
+        $('#create').hide();
+        
+        
+        //ADD SEARCH BAR 
+        var form=$('<div>').attr({id:"options3"});
+        $('#options').append(form);
+        
+        var in1=$('<input>').addClass("form-control").attr({ placeholder:"Search Room", id:"em"});
+        form.append(in1);
+        
+        var btn1=$('<button>').addClass("btn btn-warning font-weight-bold").attr({type:"button", id:"searchRoom"}).text("Search Room!");
+        $("#searchRoom").css("padding-left","35%");
+        $("#searchRoom").css("margin-left","50%");
+        form.append(btn1);
+        
+        var btn2=$('<button>').addClass("btn btn-dark font-weight-bold").attr({type:"button", id:"back2"}).text("Back");
+        $("#back2").css("padding-left","35%");
+        $("#back2").css("margin-left","50%");
+        form.append(btn2);
+        
+        var chatroom = {
+                chatroomName: $('#em').val(),
+            }
+
+         $('#searchRoom').click(function(event){
+            $.ajax({
+               method:"POST",
+               url:"/chatroom/search/",
+               data: chatroom
+            }).done(function(response){
+              console.log(response);
+              localStorage.setItem('searchRes',JSON.stringify(response));
+              window.location.replace("/chatroom/search/results");
+            }).fail(function(response){
+              console.log("error")
+              console.log(response.responseText);
+            });
+          });
+          
+         $('#back2').click(function(event){
+            $('#options3').remove();
+            $('#search').show();
+            $('#create').show();
+          });
+        
+        //WHEN SEARCH BUTTON CLICKED SHOW LIST
+    });
+     
+     //WHEN CREATE ROOM CLICKED
+    $("#create").click(function(){
+        // $('#options').css("background-color", "cyan")
+        $('#search').hide();
+        $('#create').hide();
+        
+        
+        //ADD SEARCH BAR 
+        var form=$('<div>').attr({id:"options2"});
+        $('#options').append(form);
+        
+        var in1=$('<input>').addClass("form-control").attr({ placeholder:"Enter Room Name Room", id:"sessionName"});
+        form.append(in1);
+        
+        var btn1=$('<button>').addClass("btn btn-warning font-weight-bold").attr({type:"button", id:"createRoom"}).text("Create Room!");
+        $("#createRoom").css("padding-left","35%");
+        $("#createRoom").css("margin-left","50%");
+        form.append(btn1);
+        
+        var btn2=$('<button>').addClass("btn btn-dark font-weight-bold").attr({type:"button", id:"back1"}).text("Back");
+        $("#back1").css("padding-left","35%");
+        $("#back1").css("margin-left","50%");
+        form.append(btn2);
+        
+        
+        
+        //WHEN CREATE BUTTON CLICKED SHOW LIST
+         var u=JSON.parse(localStorage.getItem('userData'));
+         var session = {s_name:"", s_id:""};  // SESSION CONTENTS TO STORE IN MONGODB
+         localStorage.setItem('sessionData',JSON.stringify(session));
+        // var session=[];
+        // function sessData(hsname,hsid){
+        //       this.s_name=hsname;
+        //       this.s_id=hsid;
+        //   }
+        // var hsname= "";
+        // var hsid="";
+        // session.push(new sessData(hsname,hsid));
+        // localStorage.setItem('sessionData',JSON.stringify(session));
+       
+         
+        //   var hist={};
+        //   if("historyData" in localStorage){
+        //       console.log("LOCAL STORAGE ASE");
+        //     } else {
+        //       console.log("LOCAL STORAGE NAI");
+        //       hist = {h_name:"", h_id:""};
+        //       localStorage.setItem('historyData',JSON.stringify(user));
+        //     }
+             
+         
+         
+        $('#createRoom').click(function(event){
+            session.s_name = $('#sessionName').val();
+            session.u_id= u.u_id;
+            $.ajax({
+              method:"POST",
+              url:"/chatroom/createSession",
+              data: session
+            }).done(function(response){
+              console.log(response);
+              session.s_id=response.s_id;
+              localStorage.setItem('sessionData',JSON.stringify(session));
+              window.location.replace("/chatroom/"+session.s_name+"/"+u.title);
+            }).fail(function(response){
+              console.log("error")
+              console.log(response.responseText);
+            });
+          });
+          
+          $('#back1').click(function(event){
+            $('#options2').remove();
+            $('#search').show();
+            $('#create').show();
+          });
+    });
+        
+        
+        
+    });
+    </script>
+    
+    
+    
+    
+    
+    
+    
+<% include ./partials/footer.ejs %>

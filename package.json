@@ -1,0 +1,29 @@
+{
+  "name": "adda15",
+  "version": "1.0.0",
+  "description": "15 min chat messenger",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nafiz95/adda15.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nafiz95/adda15/issues"
+  },
+  "homepage": "https://github.com/Nafiz95/adda15#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.14",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}

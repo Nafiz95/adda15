@@ -1,0 +1,63 @@
+<% include ./partials/header.ejs %>
+<body id= "hbd">
+    
+    <div id="logo" align=center>
+        <h1>Adda15</h1>
+        <div class="form-group">
+        <input  class="form-control" id="title"  placeholder="ENTER USER NAME">
+        <button type="button" class="btn btn-dark font-weight-bold" id="enter">START CHATTING!!</button>
+      </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+      var user={};
+      if("userData" in localStorage){
+           console.log("LOCAL STORAGE ASE");
+        } else {
+           console.log("LOCAL STORAGE NAI");
+           user = {title:"", u_id:""};
+           localStorage.setItem('userData',JSON.stringify(user));
+        }
+      // var user = {title:"", u_id:""};  // USER CONTENTS TO STORE IN MONGODB
+      // // var usrlocalStorage = localStorage.getItem('u_id')? localStorage.getItem('u_id'):""; 
+      // localStorage.setItem('userData',JSON.stringify(user));
+     
+      $('#enter').click(function(event){    // WHEN BUTTON CLICKED
+        user.title = $('#title').val();     // USER NAME
+        //user.u_id = usrlocalStorage;        // GET USERID (MONGODB ID)
+        $.ajax({
+          method:"POST",                    // POST REQUEST
+          url:"/chatroom/createUser",           // GOES TO CREATE SECTION FROM ROUTES TO CONTROLLER
+          data: user                        // SENDS THE DATA USER (title,u_id) TO CREATE
+        }).done(function(response){ 
+          console.log(response);            // CHECKIG IF IT WORKS
+          user.u_id=response.u_id;
+          //localStorage.setItem('userData',response.u_id)    // SET THE MONDODB ID TO LOCALSTORAGE
+          localStorage.setItem('userData',JSON.stringify(user));
+          window.location.replace("/chatroom/"+response.u_id);  // REDIRECT TO CHATROOM.EJS (ANOTHER PAGE)
+          
+        }).fail(function(response){
+          console.log(response.responseText);
+          
+        });
+      });
+
+    //   $('#getArticles').click(function(event){
+    //     $.ajax({
+    //       method:"GET",
+    //       url:"/article/list"
+    //     }).done(function(response){
+    //       console.log(response);
+    //     }).fail(function(response){
+    //       console.log(response.responseText);
+    //     });
+    //   });
+    });
+    </script>
+    
+
+    
+<% include ./partials/footer.ejs %>

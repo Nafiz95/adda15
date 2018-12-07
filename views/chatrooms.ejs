@@ -1,0 +1,33 @@
+<%include ./partials/header.ejs%>
+
+    <div class="container">
+        <div class="container-fluid" id="res1">
+            
+        </div>
+    </div>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        var results = localStorage.getItem('searchRes') ? localStorage.getItem('searchRes'):"";
+        results = JSON.parse(results);
+        
+        for(var i = 0; i<results.results.length; i++){
+            var cardDiv = $('<div>').addClass('card');
+            var cardBodyDiv = $('<div>').addClass('card-body');
+            cardBodyDiv.attr('id', "res2");
+            
+            
+            var title = $('<h3>').addClass('card-text').text(results.results[i].chatroomName);
+            cardBodyDiv.append(title);
+            
+            var creator = $('<p>').addClass('card-text').text("Creator: "+results.results[i].members[0].name);
+            cardBodyDiv.append(creator);
+            cardDiv.append(cardBodyDiv);
+            $("#res1").append(cardDiv);
+        }
+    </script>
+<%include ./partials/footer.ejs%>

@@ -1,0 +1,200 @@
+<% include ./partials/header.ejs %>
+
+<body id="dashboardBdy">
+    
+ <h1 style="text-align:center;" id="sessionName"></h1> 
+ 
+ <div id="sd1" align=center>
+     <div id="sd2">
+         <div id="members">
+             <h2 style="color:#6df40c">Online</h2>
+         </div>
+         <div id="timer">
+            <div>
+                <p style="color:white;font-weight:bold">
+                    Time remaining: <span id="time2">900</span>s
+                </p>
+                <br/>
+                    <button type="button" class="btn btn-success font-weight-bold" id="startBtn">Start</button>    
+                    <button type="button" class="btn btn-danger font-weight-bold" id="stopBtn">Stop</button>
+            </div>
+         </div>
+     </div>
+     <div id="sd3">
+         <div id="sd4">
+              <div id="messages" align="left">
+                  
+              </div>
+         </div>
+         <div id="sd5">
+             <input class="form-control search" id="msgBox" rows="1" placeholder="Enter message..." ></input>
+         </div>
+         
+     </div>
+     
+ </div>
+
+ <script src="/socket.io/socket.io.js"></script>
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
+ <script>
+     $(document).ready(function() {
+         
+         $("#msgBox").prop('disabled', true);
+         
+         $("#msgBox").css("cursor","not-allowed");
+        
+            
+          //--------------------------------HISTORY--------------------------------------
+        
+         var histor=JSON.parse(localStorage.getItem('sessionData'));
+         if("historyData" in localStorage){
+              console.log("LOCAL STORAGE ASE");
+              var histarr=JSON.parse(localStorage.getItem("historyData"));
+                histarr.push(histor);
+                localStorage.setItem('historyData',JSON.stringify(histarr));
+            } else {
+                console.log("HIS DATA NAI")
+                var histarr=[histor];
+                localStorage.setItem('historyData',JSON.stringify(histarr));
+            }
+        
+        //---------------------------------------------------------------------------------
+         init();
+         var socket = io();
+         var t = JSON.parse(localStorage.getItem('sessionData'));
+         var u=JSON.parse(localStorage.getItem('userData'));
+         var sessionMsg={ss_id:"",s_msg:"",userID:"",t:""};
+         
+         $('#sessionName').text(t.s_name);
+         
+         $("#msgBox").on("keydown",function search(e) {
+            if(e.keyCode == 13) {
+                // alert($(this).val());
+                socket.emit('chat message', $('#msgBox').val());
+                $('#msgBox').val('');
+                return false;
+            }   
+          
+        });
+        socket.on('chat message', function(msg){
+          var d = new Date(); // for now
+          sessionMsg.ss_id=t.s_id
+          sessionMsg.s_msg=msg;
+          sessionMsg.userID=u.u_id;
+          sessionMsg.t=JSON.stringify(d.getHours())+":"+JSON.stringify(d.getMinutes())+":"+JSON.stringify(d.getSeconds());
+          console.log(sessionMsg);
+          var form=$('<div>').addClass("messageDiv").text(u.title+":  "+msg);
+          $('#messages').append(form);
+          var brk=$('<br>');
+          $('#messages').append(brk);
+          
+         
+          $.ajax({
+              method:"POST",
+              url:"/chatroom/saveMessage",
+              data: sessionMsg
+            }).done(function(response){
+              console.log(response);
+             
+            }).fail(function(response){
+              console.log("error")
+              console.log(response.responseText);
+            });
+        });
+        
+        
+        
+        
+        
+        
+        function Timer(count, interval) {
+            this.count = count ? count : 0;
+            this.interval = interval ? interval : 0;
+            this.isPaused = false;
+            this.intervalID = 0;
+            this.outputSpanID = "time";
+            this.callback = null;
+        }
+        
+        // init function
+        Timer.prototype.init = function() {
+            this.alert();
+        };
+        
+        
+        // print time
+        Timer.prototype.printTime = function() {
+            document.getElementById(this.outputSpanID).innerHTML = this.count;
+        };
+        
+        // start the timer
+        Timer.prototype.start = function(e) {
+        
+            //clear interval
+            if (this.intervalID != 0) {
+                clearInterval(this.intervalID);
+            }
+        
+            //print time
+            this.printTime();
+        
+            var self = this;
+        
+            //setInterval method sets the interval for repeating the function
+            this.intervalID = setInterval(function() {
+                self.count -= 1;
+                if (self.count >= 0) {
+                    self.printTime();
+                } else {
+                    self.stop();
+                }
+            }, self.interval);
+        };
+        
+        // stop timer
+        Timer.prototype.stop = function() {
+            //this.alert();
+            clearInterval(this.intervalID);
+            this.count = 0;
+            this.interval = 0;
+            this.isPaused = false;
+            this.printTime();
+            if(this.callback) {
+                this.callback();
+                
+            }
+            // $("#msgBox").prop('disabled', true);
+            // $("#msgBox").css("cursor","not-allowed");
+        };
+        
+        /**
+         * init method
+         */
+        function init() {
+        
+            var timer2 = new Timer(900, 1000);
+            timer2.outputSpanID = "time2";
+            
+            /* get the buttons and attach eventhandlers */
+            var startBtn = document.getElementById("startBtn");
+            var stopBtn = document.getElementById("stopBtn");
+            startBtn.onclick = function() {
+                timer2.start();
+                 $("#msgBox").prop('disabled', false);
+                 $("#msgBox").css("cursor","text");
+             };
+            stopBtn.onclick = function() {
+                timer2.stop();
+                $("#msgBox").prop('disabled', true);
+                $("#msgBox").css("cursor","not-allowed");
+            };
+        }
+        
+       
+     });
+     
+ </script>
+ 
+<% include ./partials/footer.ejs %>
