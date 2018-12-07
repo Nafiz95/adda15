@@ -1,1 +1,3 @@
 <h1 align="center"> adda15<h1>
+<h2> FUNCTIONALITIES THAT ACTUALLY WORK FOR ASSIGNMENT PURPOSES </h2>
+<hr>
