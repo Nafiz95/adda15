@@ -26,3 +26,8 @@
 </ul>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49657607-3f489980-fa6a-11e8-877e-a312f419f791.JPG"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49657927-ffce7d00-fa6a-11e8-9e72-c222bf77deb7.JPG"></p>
+<ul>
+ <li> The sessionData contains the user ID as well so that we can keep track of who is creating this session </li>
+ <li> Clicking Create Room takes to the chatroom</li>
+ <li> We can also notice that creating room saves the name of the session in history</li>
+</ul>
