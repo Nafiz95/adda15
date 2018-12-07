@@ -5,9 +5,17 @@
 <hr>
 <h3 align="center"> CREATING USER (NEW OR OLD) </h3>
 <ul>
+  <li> localStorages are empty at first </li>
  <li> "START CHATTING" takes the input and saves in localStorage "userData"</li>
  <li> Saves User name in mongoDB (Collection name "usrs"), which assigns "_id" caught in "u_id" </li>
  <li> The u_id is sent to next page when rendered </li>
 </ul>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49654611-8894eb00-fa62-11e8-9eea-d38807873bd1.JPG"></p>
 <hr>
+<h3 align="center">  DASHBOARD</h3>
+<ul>
+  <li> localStorages "historyData" and "sessionData" are empty. This has the list of sessions a user creates </li>
+ <li> "SEARCH ROOM" searches the chat session another user creates</li>
+ <li> "CREATE ROOM" creates new chat session and saves session name in localStorage "sessionData" </li>
+</ul>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49655480-f8a47080-fa64-11e8-85fa-062a67ccbe50.JPG"></p>
