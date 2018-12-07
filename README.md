@@ -9,3 +9,5 @@
  <li> Saves User name in mongoDB (Collection name "usrs"), which assigns "_id" caught in "u_id" </li>
  <li> The u_id is sent to next page when rendered </li>
 </ul>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49654611-8894eb00-fa62-11e8-9eea-d38807873bd1.JPG"></p>
+<hr>
