@@ -25,3 +25,4 @@
  <li> Saves user given name for session in localSotrage "sessionData" and also in mongoDB (collection: msns)</li>
 </ul>
 <p align="center"><img src="https://user-images.githubusercontent.com/24278948/49657607-3f489980-fa6a-11e8-877e-a312f419f791.JPG"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49657927-ffce7d00-fa6a-11e8-9e72-c222bf77deb7.JPG"></p>
