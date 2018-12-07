@@ -31,3 +31,9 @@
  <li> Clicking Create Room takes to the chatroom</li>
  <li> We can also notice that creating room saves the name of the session in history</li>
 </ul>
+<h4> SEARCH ROOM </h4>
+<ul>
+ <li> Dynamically generates a form to search session </li>
+ <li> Fetches sessionID from database with seach key</li>
+</ul>
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49658222-c2b6ba80-fa6b-11e8-9e85-4770388653f5.JPG"></p>
