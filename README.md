@@ -46,4 +46,7 @@
  <li> There's a timer set to 900s (15mins). When the page is first loaded, user cannot send messages unless the user clicks start</li>
  <li> When the time stops, or when user clicks stop, the input form will be disabled again</li>
 </ul>
-
+<p align="center"><img src="https://user-images.githubusercontent.com/24278948/49659199-de22c500-fa6d-11e8-829e-3ec14c608092.JPG"></p>
+<ul>
+ <li> When the user has clicked start and sends message, the message is saved in session schema with userID who had sent it</li>
+</ul>
